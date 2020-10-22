@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>查询配置文件列表API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileList', {
+      groupId: '',//分组ID，可空
+      profileName: '',//配置文件名称，可空
+      pageSize: 1000,//每页返回结果数量
+      pageNum: 1//当前查询页数
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileList', function (res) {
+    console.log(res)
+  })
+
+</script>
+</body>
+</html>

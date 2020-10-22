@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>关闭浏览器API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('closeBrowser', {
+      profileId: '201010144612449086',//配置文件ID,
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('closeBrowser', function (res) {
+    console.log(res)
+  })
+
+</script>
+</body>
+</html>
