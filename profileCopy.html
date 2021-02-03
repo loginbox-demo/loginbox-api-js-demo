@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>新建配置文件列表API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileCopy', {
+      model: {
+        profileId:'210203132759642009',//原配置文件ID
+        profileName: '新配置文件名称-1',
+        remark: '新环境文件描述',//选填
+        groupId: '200909174647029000',//分组ID，选填
+      }
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileCopy', function (res) {
+    if (res.success) {
+      console.log('创建成功', res.data)
+    } else {
+      console.log(res.error)
+    }
+
+  })
+
+</script>
+</body>
+</html>

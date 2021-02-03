@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>新建配置文件列表API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileCreate', {
+      model: {
+        profileName: '配置文件名称',
+        remark: '环境文件描述',
+        groupId: '200909174647029000',//分组ID，必填
+        url: '',//默认首页地址
+        deviceType: '1',//设备类型 '1': 'windows电脑','2': '苹果手机','3': '安卓手机','4': 'mac电脑'
+        timezone: 'Asia/Shanghai',//时区
+        timezoneDetect: false,//是否自动检测时区
+        lang: 'zh-CN',//语言
+        screenWidth: window.screen.width,//屏幕分辨率宽度
+        screenHeight: window.screen.height,//屏幕分辨率宽度
+        colorDepth: window.screen.colorDepth,
+        userAgent: window.navigator.userAgent,
+        navigatorPlatform: window.navigator.platform,
+        navigatorVendor: window.navigator.vendor,
+        navigatorProduct: window.navigator.product,
+        navigatorAppName: window.navigator.appName,
+        navigatorHardwareConcurrency: window.navigator.hardwareConcurrency,//cpu数量
+        navigatorHardwareConcurrencyEnable: true,//是否模拟CPU数量
+        devicePixelRatio: window.devicePixelRatio,
+        deviceMemory: 8,
+        proxyType: '0',//代理协议类型,0:'http', 1:'https',2: 'socks5',3: 'socks4'
+        proxyHost: '',//代理服务器地址
+        proxyPort: '',//代理服务器端口
+        proxyUsername: '',//代理服务器账号
+        proxyPassword: '',//代理服务器密码
+        proxyFlag: false,//是否启用代理
+        webrtcFlag: '0',//0：webRTC真实模式，1：替换模式，-1：禁用模式
+        webrtcPublicIp: '',//webRTC公网IP，多个IP以英文逗号隔开
+        webrtcLocalIp: '',//webRTC内网IP，多个IP以英文逗号隔开
+        webrtcPublicIpDetect: false,//自动检测webRTC公网IP
+        webglFlag: false,//是否启用webgl指纹保护
+        webglVendor: '',
+        webglRenderer: '',
+        canvasFlag: false,//是否开启canvas指纹保护
+        fontFlag: false,//是否开启字体指纹保护
+        audioFlag: false,//是否开启声卡指纹保护
+
+        pluginsFlag: '-1',//插件信息,1:真实模式,-1:'禁用模式'
+        batteryFlag: false,//是否开启电量模拟
+        batteryCharging: 0,//是否正在充电,1:是，0：否
+        batteryLevel: 100,//剩余电量1-100
+        openCheckPage: true,//打开浏览器是否打开环境检测页面
+        mediaDeviceFlag: true,//是否开启媒体设备信息保护
+      },
+      //媒体设备信息,如果不开启保护就传
+      devices: [
+        //视频输入设备信息
+        [
+          {
+            label: 'Integrated Camera (0921:12890)',//设备名称
+            deviceId: 'ad869c980c9803809f05a989014168b5fa0a5d198269694f69aec6e5889ae91d',//通常为64位随机字符串
+            groupId: '3147ce70d8dc028d6f1c8b95e86abdd08dabd9e9ccf7ef0ac408e501e20f82a9',//通常为64位随机字符串
+            mediaType: '0',//视频输入设备固定填0
+            sort: '0'//排序，0-99
+          }
+        ],
+        //语音输入设备信息
+        [
+          {
+            label: 'default - (Built-in Microphone)',//设备名称
+            deviceId: 'ffbb8b840864a3e4a8fc1ed72e34f62ac8e82772ccacf231233801a890f43f93',//通常为64位随机字符串
+            groupId: 'ffa13f2200c83ed5a5bb751a16c19dad1081301184b7457b1382556547b11ef0',//通常为64位随机字符串
+            mediaType: '1',//语音输入设备固定填0
+            sort: '0'//排序，0-99
+          }
+        ],
+        //语音输出设备信息
+        [
+          {
+            label: 'Built-in Microphone',//设备名称
+            deviceId: 'f15f00d034784b34d0095f7c311b524ee46aa014f3a55785d0d42d93d18488c3',//通常为64位随机字符串
+            groupId: '2ed939d0ee0207a37833ca6776cb0c36af8c5e0d4197e2bcd1b3419a502e9749',//通常为64位随机字符串
+            mediaType: '2',//语音输出设备固定填0
+            sort: '0'//排序，0-99
+          }
+        ]
+      ]
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileCreate', function (res) {
+    if (res.success) {
+      console.log('创建成功', res.data)
+    } else {
+      console.log(res.error)
+    }
+
+  })
+
+</script>
+</body>
+</html>
