@@ -13,7 +13,7 @@
       model: {
         profileName: '配置文件名称',
         remark: '环境文件描述',
-        groupId: '200909174647029000',//分组ID，必填
+        groupId: '201026223813500034',//分组ID，必填
         url: '',//默认首页地址
         deviceType: '1',//设备类型 '1': 'windows电脑','2': '苹果手机','3': '安卓手机','4': 'mac电脑'
         timezone: 'Asia/Shanghai',//时区
@@ -36,24 +36,25 @@
         proxyPort: '',//代理服务器端口
         proxyUsername: '',//代理服务器账号
         proxyPassword: '',//代理服务器密码
-        proxyFlag: false,//是否启用代理
+        proxyFlag: true,//是否启用代理
         webrtcFlag: '0',//0：webRTC真实模式，1：替换模式，-1：禁用模式
         webrtcPublicIp: '',//webRTC公网IP，多个IP以英文逗号隔开
         webrtcLocalIp: '',//webRTC内网IP，多个IP以英文逗号隔开
         webrtcPublicIpDetect: false,//自动检测webRTC公网IP
-        webglFlag: false,//是否启用webgl指纹保护
+        webglFlag: true,//是否启用webgl指纹保护
         webglVendor: '',
         webglRenderer: '',
-        canvasFlag: false,//是否开启canvas指纹保护
-        fontFlag: false,//是否开启字体指纹保护
-        audioFlag: false,//是否开启声卡指纹保护
+        canvasFlag: true,//是否开启canvas指纹保护
+        fontFlag: true,//是否开启字体指纹保护
+        audioFlag: true,//是否开启声卡指纹保护
 
         pluginsFlag: '-1',//插件信息,1:真实模式,-1:'禁用模式'
-        batteryFlag: false,//是否开启电量模拟
+        batteryFlag: true,//是否开启电量模拟
         batteryCharging: 0,//是否正在充电,1:是，0：否
         batteryLevel: 100,//剩余电量1-100
         openCheckPage: true,//打开浏览器是否打开环境检测页面
         mediaDeviceFlag: true,//是否开启媒体设备信息保护
+        sslErrorIgnore: false,//是否忽略SSL错误警告，请谨慎开启
       },
       //媒体设备信息,如果不开启保护就传
       devices: [
