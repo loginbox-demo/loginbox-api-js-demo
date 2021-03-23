@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>重置环境API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileReset', {
+      //可以通过本接口重置浏览器环境（指纹、配置信息、所有浏览器数据）
+      //本接口字段和profileCreate接口参数相同。
+      //调用本接口会重置硬件指纹
+      //可以通过本接口修改指定的环境参数
+      model: {
+        profileId: '210303140305089001',//配置文件ID必传
+        userAgent: 'new user agent'//如果指定了环境参数，则会进行修改，如果不传则继续使用之前的值
+      }
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileReset', function (res) {
+    if (res.success) {
+      console.log('重置成功', res.data)
+    } else {
+      console.log(res.error)
+    }
+
+  })
+
+</script>
+</body>
+</html>
