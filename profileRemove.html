@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>删除配置文件列表API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileRemove', {
+      profileId:'210129102512687650'//配置文件ID必传
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileRemove', function (res) {
+    if (res.success) {
+      console.log('删除成功', res.data)
+    } else {
+      console.log(res.error)
+    }
+
+  })
+
+</script>
+</body>
+</html>
