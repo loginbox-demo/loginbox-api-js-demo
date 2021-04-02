@@ -7,6 +7,9 @@
 <body>
 <script src="SocketClient.js"></script>
 <script>
+
+
+
   socketClient.connect().then(() => {
 
     socketClient.send('profileReset', {
@@ -15,7 +18,7 @@
       //调用本接口会重置硬件指纹
       //可以通过本接口修改指定的环境参数
       model: {
-        profileId: '210303140305089001',//配置文件ID必传
+        profileId: '210109154430835001',//配置文件ID必传
         userAgent: 'new user agent'//如果指定了环境参数，则会进行修改，如果不传则继续使用之前的值
       }
     })

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>随机重置环境API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+
+
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileRandomReset', {
+      //调用本接口会将指定环境的指纹信息随机生成新的指纹信息(navigator,硬件指纹，字体指纹，显卡型号，内网IP等)
+      profileId: '210203143822082005'
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileRandomReset', function (res) {
+    if (res.success) {
+      console.log('重置成功', res.data)
+    } else {
+      console.log(res.error)
+    }
+
+  })
+
+</script>
+</body>
+</html>
