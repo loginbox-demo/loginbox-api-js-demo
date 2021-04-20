@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>查询配置文件详情API</title>
+</head>
+<body>
+<script src="SocketClient.js"></script>
+<script>
+  socketClient.connect().then(() => {
+
+    socketClient.send('profileInfo', {
+      'profileId': '201125232530016240'
+
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('profileInfo', function (res) {
+    console.log(res)
+  })
+
+</script>
+</body>
+</html>
