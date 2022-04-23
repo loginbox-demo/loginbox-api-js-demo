@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookies导入</title>
+<body>
+<script type="text/javascript" src="lib/aes-js.js"></script>
+<script type="text/javascript" src="lib/base64-arraybuffer.es5.js"></script>
+<script src="SocketClient.js"></script>
+<script>
+
+
+  socketClient.connect().then(() => {
+
+    //要导入的cookies数据文本，utf-8编码格式，具体格式参考cookies导出数据
+    let cookies = `your cookies text data`
+
+    // cookies属于敏感数据，加密后再传输
+    /****************cookies数据属于敏感数据，请妥善保存*****************/
+    /****************cookies数据一旦泄露可能引发账号资产安全，请重视*****************/
+
+      //密钥从软件左侧菜单》软件设置》接口设置》AES密钥 处进行设置
+      //AES密钥请勿泄露
+    const key = 'Y7LxESAK5OZ8WyjLH1J7Hwx07DEtCawZ'
+    const enc = new TextEncoder();
+    const counter = enc.encode('I8zyA4lVhMCaJ5Kg')//固定不修改
+
+    const textBytes = aesjs.utils.utf8.toBytes(cookies);
+
+    const aesCtr = new aesjs.ModeOfOperation.ctr(enc.encode(key), counter);
+
+    const encryptedBytes = aesCtr.encrypt(textBytes);
+
+    cookies = base64Encode(encryptedBytes.buffer)
+
+
+    socketClient.send('cookieImport', {
+      profileId: '220415220207304806',//配置文件ID必传
+      cookies// 要导入的cookies数据，加密后传输
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+  socketClient.addHandle('cookieImport', function (res) {
+    if (res.success) {
+      console.log('导入成功', res.data)
+    } else {
+      console.log(res.error)
+    }
+
+  })
+</script>
+</body>
+</html>

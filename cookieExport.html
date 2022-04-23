@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookies导出</title>
+</head>
+<body>
+<script type="text/javascript" src="lib/aes-js.js"></script>
+<script type="text/javascript" src="lib/base64-arraybuffer.es5.js"></script>
+<script src="SocketClient.js"></script>
+<script>
+
+  socketClient.addHandle('cookieExport', async function (res) {
+    if (res.success) {
+
+      console.log('导出成功')
+
+      //cookies属于敏感数据，加密返回
+      //进行解密
+      const enc = new TextEncoder();
+
+      //密钥从软件左侧菜单》软件设置》接口设置》AES密钥 处进行设置
+      //AES密钥请勿泄露
+      const key = 'Y7LxESAK5OZ8WyjLH1J7Hwx07DEtCawZ'
+
+      const key_encoded = await crypto.subtle.importKey("raw", enc.encode(key), 'AES-CTR', false, ["encrypt", "decrypt"]);
+
+      const counter = enc.encode('I8zyA4lVhMCaJ5Kg')//固定不修改
+
+
+      const decrypted = await window.crypto.subtle.decrypt(
+        {
+          name: "AES-CTR",
+          counter,
+          length: 64
+        },
+        key_encoded,
+        base64Decode(res.data.cookies)
+      );
+
+      const dec = new TextDecoder("utf-8");
+
+
+      /****************cookies数据属于敏感数据，请妥善保存*****************/
+      /****************cookies数据一旦泄露可能引发账号资产安全，请重视*****************/
+
+
+      //打印，解密的cookies数据，
+      console.log(dec.decode(decrypted))
+
+    } else {
+      console.log(res.error)
+    }
+
+  })
+
+  socketClient.connect().then(() => {
+
+    socketClient.send('cookieExport', {
+      profileId: '210621234929253150',//配置文件ID必传,
+    })
+  }).catch((error) => {
+    socketClient.showError(error)
+  })
+</script>
+</body>
+</html>
